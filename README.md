@@ -1,10 +1,10 @@
 # Tagged
 
 - [Tagged](#tagged)
-  - [Installation 💻](#installation-)
+  - [Installation](#installation)
   - [Running Tests](#running-tests)
 
-## Installation 💻
+## Installation
 
 Add `tagged` to your `pubspec.yaml`:
 
