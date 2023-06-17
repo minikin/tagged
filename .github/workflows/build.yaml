@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1.5.0
+
+      - name: Print Dart SDK version
+        run: dart --version
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Format
+        run: dart format --set-exit-if-changed lib test example
+
+      - name: Analyze project source
+        run: dart analyze --fatal-infos --fatal-warnings lib test example
+
+      - name: Run example
+        run: dart run example/main.dart
+
+      - name: Active coverage
+        run: dart pub global activate coverage
+
+      - name: Run tests and collect coverage
+        run: dart pub global run coverage:test_with_coverage
+
+    #   - name: Check Code Coverage
+    #     uses: VeryGoodOpenSource/very_good_coverage@v2.1.0
+    #     with:
+    #       path: coverage/lcov.info
+    #       min_coverage: 100
+
+    #   - name: Upload coverage to Codecov
+    #     uses: codecov/codecov-action@v1
+    #     with:
+    #       token: ${{ secrets.CODECOV_TOKEN }}
