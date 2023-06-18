@@ -47,15 +47,6 @@ void main() {
       expect(tagged1.compareTo(tagged2), greaterThan(0));
     });
 
-    // test(
-    //   'compareTo throws a StateError for Tagged instances with different types',
-    //   () {
-    //     final tagged1 = Tagged('foo');
-    //     final tagged2 = Tagged('bar');
-    //     expect(() => tagged1.compareTo(tagged2), throwsStateError);
-    //   },
-    // );
-
     test('can be serialized to JSON', () {
       final tagged = Tagged(42);
       final json = tagged.toJson();
@@ -102,4 +93,31 @@ void main() {
     final tagged = Tagged(42);
     expect(tagged.toString(), equals('Tagged(value: 42)'));
   });
+
+  test('copyWith returns same instance if value is null', () {
+    final tagged = Tagged<int>(42);
+    final copy = tagged.copyWith(value: null);
+    expect(copy, equals(tagged));
+  });
+
+  test('copyWith returns same instance if value is equal', () {
+    final tagged = Tagged<int>(42);
+    final copy = tagged.copyWith(value: 42);
+    expect(copy, equals(tagged));
+  });
+
+  test('copyWith returns new instance if value is different', () {
+    final tagged = Tagged<int>(42);
+    final copy = tagged.copyWith(value: 43);
+    expect(copy, isNot(equals(tagged)));
+    expect(copy.value, equals(43));
+  });
+
+  // test(
+  //     'compareTo throws a StateError for Tagged instances with different types',
+  //     () {
+  //   final tagged1 = Tagged('foo');
+  //   final tagged2 = Tagged(1);
+  //   expect(() => tagged1.compareTo(tagged2), throwsStateError);
+  // });
 }

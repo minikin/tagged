@@ -33,6 +33,13 @@ class Tagged<T extends Object> implements Comparable<Tagged<T>> {
   @override
   String toString() => 'Tagged(value: $_value)';
 
+  Tagged<T> copyWith({T? value}) {
+    if (value == null || value == _value) {
+      return this;
+    }
+    return Tagged<T>(value);
+  }
+
   @override
   int compareTo(Tagged<T> other) {
     if (_value is num && other._value is num) {
