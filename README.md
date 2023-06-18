@@ -21,20 +21,11 @@ dart pub get
 
 ## Running Tests
 
-To run all unit tests:
+To run all unit tests and collect test coverage data:
 
 ```sh
-dart pub global activate coverage 1.2.0
-dart test --coverage=coverage
-dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info
-```
-
-To view the generated coverage report you can use [lcov](https://github.com/linux-test-project/lcov).
-
-```sh
-# Generate Coverage Report
-genhtml coverage/lcov.info -o coverage/
-
-# Open Coverage Report
+dart pub global activate coverage
+dart pub global run coverage:test_with_coverage &&
+genhtml coverage/lcov.info -o coverage/ &&
 open coverage/index.html
 ```

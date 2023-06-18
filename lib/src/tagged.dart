@@ -1,12 +1,15 @@
 typedef Validator<T> = void Function(T value);
 
-class Tagged<T> {
+class Tagged<T extends Object> implements Comparable<Tagged<T>> {
   final T _value;
 
   T get value => _value;
 
-  factory Tagged(T value, [Validator<T>? validator]) {
-    (validator ?? (T value) {})(value);
+  factory Tagged(T value) {
+    if (value is! String && value is! num) {
+      throw ArgumentError('Value must be of type String or num');
+    }
+
     return Tagged._(value);
   }
 
@@ -28,5 +31,16 @@ class Tagged<T> {
   int get hashCode => _value.hashCode;
 
   @override
-  String toString() => 'Tagged(_value: $_value)';
+  String toString() => 'Tagged(value: $_value)';
+
+  @override
+  int compareTo(Tagged<T> other) {
+    if (_value is num && other._value is num) {
+      return (_value as num).compareTo(other._value as num);
+    } else if (_value is String && other._value is String) {
+      return (_value as String).compareTo(other._value as String);
+    } else {
+      throw StateError('Cannot compare values of different types');
+    }
+  }
 }
