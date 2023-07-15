@@ -6,11 +6,11 @@ A Newtype Pattern, a Safe & Type-Restricted Wrapper for Dart
 
 <p align="center">
     <a href="https://github.com/minikin/tagged/actions">
-    <img src="https://github.com/minikin/tagged/actions/workflows/build.yml/badge.svg" alt="CI Status" />
+    <img src="https://github.com/minikin/result_type/actions/workflows/build.yml/badge.svg" alt="CI Status" />
   </a>
 
-  <a href="https://codecov.io/gh/minikin/tagged">
-    <img src="https://codecov.io/gh/minikin/tagged/branch/main/graph/badge.svg?token=dpljQutAnj"/>
+  <a href="https://codecov.io/gh/minikin/tagged" > 
+  <img src="https://codecov.io/gh/minikin/tagged/branch/main/graph/badge.svg?token=n4qmrtvshr"/> 
   </a>
 
    <a href="https://github.com/minikin/tagged/blob/main/LICENSE">
