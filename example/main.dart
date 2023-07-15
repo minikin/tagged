@@ -2,17 +2,26 @@ import 'package:tagged/tagged.dart';
 
 void main() {
   final user = User(
-    UserId('1'),
-    'John',
-    Email('email@mail.com'),
+    id: UserId('1'),
+    name: 'John',
+    email: Email('email@mail.com'),
   );
-  final item = ShopItem(ItemId('1'), 10);
 
-  print(user.id);
-  print(item.id);
+  final item = ShopItem(
+    id: ItemId('1'),
+    price: 10,
+  );
+
+  // 🛑 The argument type 'Tagged<ShopItem, String>' can't be assigned to the parameter type 'Tagged<User, String>'.
+  // processUserData(item.id);
+
+  print({
+    'user': user.id.rawValue,
+    'item': item.id.rawValue,
+  });
 }
 
-void processUnUser(UserId id) {
+void processUserData(UserId id) {
   print(id);
 }
 
@@ -27,7 +36,11 @@ final class User {
   final String name;
   final Email email;
 
-  const User(this.id, this.name, this.email);
+  const User({
+    required this.id,
+    required this.name,
+    required this.email,
+  });
 }
 
 typedef ItemId = Tagged<ShopItem, String>;
@@ -36,5 +49,8 @@ final class ShopItem {
   final ItemId id;
   final double price;
 
-  const ShopItem(this.id, this.price);
+  const ShopItem({
+    required this.id,
+    required this.price,
+  });
 }
