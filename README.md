@@ -1,6 +1,6 @@
-<h1 align="center">Tagged</h1>
+# Tagged
 
-<h2 align="center"> A Newtype Pattern, a Safe & Type-Restricted Wrapper for Dart</h2>
+A Newtype Pattern, a Safe & Type-Restricted Wrapper for Dart
 
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct.svg)](https://vshymanskyy.github.io/StandWithUkraine)
 
@@ -22,16 +22,17 @@
   </a>
 </p>
 
-- [Motivation](#motivation)
-- [The problem](#the-problem)
-- [The solution](#the-solution)
-  - [Handling Tag Collisions](#handling-tag-collisions)
-  - [Accessing Raw Values](#accessing-raw-values)
-- [Features](#features)
-- [Installation](#installation)
-- [FAQ](#faq)
-- [Support](#support)
-- [License](#license)
+- [Tagged](#tagged)
+  - [Motivation](#motivation)
+  - [The problem](#the-problem)
+  - [The solution](#the-solution)
+    - [Handling Tag Collisions](#handling-tag-collisions)
+    - [Accessing Raw Values](#accessing-raw-values)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [FAQ](#faq)
+  - [Support](#support)
+  - [License](#license)
 
 
 > Inspired by [Pointfreeco's Tagged Swift Package](https://github.com/pointfreeco/swift-tagged) and Rust.
