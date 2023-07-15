@@ -1,5 +1,5 @@
 name: tagged
-description: Tagged.
+description: A Newtype Pattern, a Safe & Type-Restricted Wrapper for Dart.
 version: 0.1.0
 publish_to: none
 

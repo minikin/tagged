@@ -1,9 +1,49 @@
-# Tagged
+<h1 align="center">Tagged</h1>
 
-- [Tagged](#tagged)
-  - [Installation](#installation)
-  - [Development](#development)
-    - [Running Tests](#running-tests)
+<h2 align="center"> A Newtype Pattern, a Safe & Type-Restricted Wrapper for Dart</h2>
+
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct.svg)](https://vshymanskyy.github.io/StandWithUkraine)
+
+<p align="center">
+    <a href="https://github.com/minikin/tagged/actions">
+    <img src="https://github.com/minikin/tagged/actions/workflows/build.yml/badge.svg" alt="CI Status" />
+  </a>
+
+  <a href="https://codecov.io/gh/minikin/tagged">
+    <img src="https://codecov.io/gh/minikin/tagged/branch/main/graph/badge.svg?token=dpljQutAnj"/>
+  </a>
+
+   <a href="https://github.com/minikin/tagged/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Tagged is released under the MIT license." />
+  </a>
+
+  <a href="https://github.com/minikin/tagged/blob/main/CODE_OF_CONDUCT.md">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" />
+  </a>
+</p>
+
+- [Motivation](#motivation)
+- [The problem](#the-problem)
+- [The solution](#the-solution)
+  - [Handling Tag Collisions](#handling-tag-collisions)
+  - [Accessing Raw Values](#accessing-raw-values)
+- [Features](#features)
+- [Installation](#installation)
+- [FAQ](#faq)
+- [License](#license)
+
+## Motivation
+
+
+## The problem
+
+## The solution
+
+### Handling Tag Collisions
+
+### Accessing Raw Values
+
+## Features
 
 ## Installation
 
@@ -20,15 +60,8 @@ Install it:
 dart pub get
 ```
 
-## Development
+## FAQ
 
-### Running Tests
 
-To run all unit tests and collect test coverage data:
 
-```sh
-dart pub global activate coverage
-dart pub global run coverage:test_with_coverage &&
-genhtml coverage/lcov.info -o coverage/ &&
-open coverage/index.html
-```
+## License
