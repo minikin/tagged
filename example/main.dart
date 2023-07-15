@@ -8,7 +8,8 @@ void main() {
   );
   final item = ShopItem(ItemId('1'), 10);
 
-  // processUnUser(item.id);
+  print(user.id);
+  print(item.id);
 }
 
 void processUnUser(UserId id) {
