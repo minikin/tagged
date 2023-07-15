@@ -2,7 +2,8 @@
 
 - [Tagged](#tagged)
   - [Installation](#installation)
-  - [Running Tests](#running-tests)
+  - [Development](#development)
+    - [Running Tests](#running-tests)
 
 ## Installation
 
@@ -10,7 +11,7 @@ Add `tagged` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tagged:
+  tagged: ^0.1.0
 ```
 
 Install it:
@@ -19,7 +20,9 @@ Install it:
 dart pub get
 ```
 
-## Running Tests
+## Development
+
+### Running Tests
 
 To run all unit tests and collect test coverage data:
 

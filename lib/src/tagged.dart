@@ -1,53 +1,49 @@
-typedef Validator<T> = void Function(T value);
+final class Tagged<Tag extends Object, RawValue extends Object>
+    implements Comparable<Tagged<Tag, RawValue>> {
+  final RawValue rawValue;
 
-class Tagged<T extends Object> implements Comparable<Tagged<T>> {
-  final T _value;
+  const Tagged(this.rawValue);
 
-  T get value => _value;
-
-  factory Tagged(T value) {
-    if (value is! String && value is! num) {
-      throw ArgumentError('Value must be of type String or num');
-    }
-
-    return Tagged._(value);
+  Tagged<Tag, RawValue> copyWith({
+    RawValue? rawValue,
+  }) {
+    return Tagged<Tag, RawValue>(
+      rawValue ?? this.rawValue,
+    );
   }
 
-  Tagged._(this._value);
+  @override
+  String toString() => 'Tagged(rawValue: $rawValue)';
 
-  Map<String, dynamic> toJson() {
-    return {'value': _value};
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Tagged<Tag, RawValue> && other.rawValue == rawValue;
+  }
+
+  @override
+  int get hashCode => rawValue.hashCode;
+
+  @override
+  int compareTo(Tagged<Tag, RawValue> other) {
+    return (rawValue as Comparable).compareTo(other.rawValue as Comparable);
   }
 
   factory Tagged.fromJson(Map<String, dynamic> json) {
-    return Tagged<T>(json['value']);
+    final rawValue = json['rawValue'] as RawValue;
+    return Tagged<Tag, RawValue>(rawValue);
   }
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) || other is Tagged && _value == other._value;
-
-  @override
-  int get hashCode => _value.hashCode;
-
-  @override
-  String toString() => 'Tagged(value: $_value)';
-
-  Tagged<T> copyWith({T? value}) {
-    if (value == null || value == _value) {
-      return this;
-    }
-    return Tagged<T>(value);
+  Map<String, dynamic> toJson() {
+    return {
+      'rawValue': rawValue,
+    };
   }
 
-  @override
-  int compareTo(Tagged<T> other) {
-    if (_value is num && other._value is num) {
-      return (_value as num).compareTo(other._value as num);
-    } else if (_value is String && other._value is String) {
-      return (_value as String).compareTo(other._value as String);
-    } else {
-      throw StateError('Cannot compare values of different types');
-    }
+  Tagged<Tag, NewValue> map<NewValue extends Object>(
+      NewValue Function(RawValue) mapper) {
+    final newValue = mapper(rawValue);
+    return Tagged<Tag, NewValue>(newValue);
   }
 }

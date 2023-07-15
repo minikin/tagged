@@ -3,121 +3,78 @@ import 'package:test/test.dart';
 
 void main() {
   group('Tagged', () {
-    test('can be created with a num value', () {
-      final tagged = Tagged(42);
-      expect(tagged.value, equals(42));
-    });
-
-    test('can be created with a String value', () {
-      final tagged = Tagged('hello');
-      expect(tagged.value, equals('hello'));
-    });
-
-    test('throws an error when created with an invalid value', () {
-      expect(() => Tagged(true), throwsArgumentError);
-    });
-
-    test('can be compared to another Tagged instance', () {
-      final tagged1 = Tagged(42);
-      final tagged2 = Tagged(42);
-      final tagged3 = Tagged(43);
-
-      expect(tagged1.compareTo(tagged2), equals(0));
-      expect(tagged1.compareTo(tagged3), equals(-1));
-      expect(tagged3.compareTo(tagged1), equals(1));
-    });
-
-    test('compareTo returns 0 for equal Tagged instances', () {
-      final tagged1 = Tagged('foo');
-      final tagged2 = Tagged('foo');
-      expect(tagged1.compareTo(tagged2), equals(0));
-    });
-
-    test('compareTo returns a negative value for less-than Tagged instances',
+    test(
+        'copyWith returns a new Tagged instance with the same type and a different value',
         () {
-      final tagged1 = Tagged('bar');
-      final tagged2 = Tagged('foo');
-      expect(tagged1.compareTo(tagged2), lessThan(0));
+      final tagged1 = Tagged<int, int>(42);
+      final tagged2 = tagged1.copyWith(rawValue: 24);
+      expect(tagged1.rawValue, equals(42));
+      expect(tagged2.rawValue, equals(24));
+      expect(tagged1.runtimeType, equals(tagged2.runtimeType));
     });
 
-    test('compareTo returns a positive value for greater-than Tagged instances',
+    test(
+        'copyWith returns a new Tagged instance with the same type and updated value',
         () {
-      final tagged1 = Tagged('foo');
-      final tagged2 = Tagged('bar');
-      expect(tagged1.compareTo(tagged2), greaterThan(0));
+      final tagged1 = Tagged<int, int>(42);
+      final tagged2 = tagged1.copyWith(rawValue: 24);
+      expect(tagged1.runtimeType, equals(tagged2.runtimeType));
+      expect(tagged2.rawValue, equals(24));
     });
 
-    test('can be serialized to JSON', () {
-      final tagged = Tagged(42);
+    test('copyWith returns a new instance with the specified rawValue', () {
+      final tagged1 = Tagged<int, int>(42);
+      final tagged2 = tagged1.copyWith(rawValue: null);
+      expect(tagged2.rawValue, equals(42));
+    });
+
+    test(
+        'map returns a new Tagged instance with the same type and a mapped value',
+        () {
+      final tagged1 = Tagged<int, String>('42');
+      final tagged2 = tagged1.map<String>((value) => value.toString());
+
+      expect(tagged1.runtimeType, equals(tagged2.runtimeType));
+      expect(tagged2.rawValue, equals('42'));
+    });
+
+    test('toJson returns a Map with the rawValue field', () {
+      final tagged = Tagged<int, int>(42);
       final json = tagged.toJson();
-      expect(json, equals({'value': 42}));
+      expect(json, equals({'rawValue': 42}));
     });
 
-    test('can be deserialized from JSON', () {
-      final json = {'value': 42};
-      final tagged = Tagged.fromJson(json);
-      expect(tagged.value, equals(42));
+    test('fromJson returns a new Tagged instance with the rawValue field', () {
+      final json = {'rawValue': 42};
+      final tagged = Tagged<int, int>.fromJson(json);
+      expect(tagged.rawValue, equals(42));
+    });
+
+    test('hashCode returns the hashCode of the rawValue field', () {
+      final tagged = Tagged<int, int>(42);
+      expect(tagged.hashCode, equals(42.hashCode));
+    });
+
+    test('== returns true if the rawValue fields are equal', () {
+      final tagged1 = Tagged<int, int>(42);
+      final tagged2 = Tagged<int, int>(42);
+      final tagged3 = Tagged<int, int>(24);
+      expect(tagged1 == tagged2, isTrue);
+      expect(tagged1 == tagged3, isFalse);
+    });
+
+    test('toString returns the expected string representation', () {
+      final tagged = Tagged<int, int>(42);
+      expect(tagged.toString(), equals('Tagged(rawValue: 42)'));
+    });
+
+    test(
+        'compareTo returns the expected value when comparing comparable values',
+        () {
+      final tagged1 = Tagged<int, int>(42);
+      final tagged2 = Tagged<int, int>(24);
+      final result = tagged1.compareTo(tagged2);
+      expect(result, equals(1));
     });
   });
-
-  test('== returns true for equal Tagged instances', () {
-    final tagged1 = Tagged(42);
-    final tagged2 = Tagged(42);
-    expect(tagged1 == tagged2, isTrue);
-  });
-
-  test('== returns false for different Tagged instances', () {
-    final tagged1 = Tagged(42);
-    final tagged2 = Tagged(43);
-    expect(tagged1 == tagged2, isFalse);
-  });
-
-  test('== returns false for non-Tagged instances', () {
-    final tagged = Tagged(42);
-    expect(tagged == 42, isFalse);
-  });
-
-  test('hashCode returns the same value for equal Tagged instances', () {
-    final tagged1 = Tagged(42);
-    final tagged2 = Tagged(42);
-    expect(tagged1.hashCode, equals(tagged2.hashCode));
-  });
-
-  test('hashCode returns different values for different Tagged instances', () {
-    final tagged1 = Tagged(42);
-    final tagged2 = Tagged(43);
-    expect(tagged1.hashCode, isNot(equals(tagged2.hashCode)));
-  });
-
-  test('toString returns the expected value', () {
-    final tagged = Tagged(42);
-    expect(tagged.toString(), equals('Tagged(value: 42)'));
-  });
-
-  test('copyWith returns same instance if value is null', () {
-    final tagged = Tagged<int>(42);
-    final copy = tagged.copyWith(value: null);
-    expect(copy, equals(tagged));
-  });
-
-  test('copyWith returns same instance if value is equal', () {
-    final tagged = Tagged<int>(42);
-    final copy = tagged.copyWith(value: 42);
-    expect(copy, equals(tagged));
-  });
-
-  test('copyWith returns new instance if value is different', () {
-    final tagged = Tagged<int>(42);
-    final copy = tagged.copyWith(value: 43);
-    expect(copy, isNot(equals(tagged)));
-    expect(copy.value, equals(43));
-  });
-
-  // test(
-  //     'compareTo throws a StateError for Tagged instances with different types',
-  //     () {
-  //   final tagged1 = Tagged('foo');
-  //   final tagged2 = Tagged(1);
-  //   expect(() => tagged1.compareTo(tagged2), throwsStateError);
-  // });
 }
