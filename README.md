@@ -30,10 +30,13 @@
 - [Features](#features)
 - [Installation](#installation)
 - [FAQ](#faq)
+- [Support](#support)
 - [License](#license)
 
-## Motivation
 
+> Inspired by [Pointfreeco's Tagged Swift Package](https://github.com/pointfreeco/swift-tagged) and Rust.
+
+## Motivation
 
 ## The problem
 
@@ -63,5 +66,11 @@ dart pub get
 ## FAQ
 
 
+## Support
+
+Post issues and feature requests on the GitHub [issue tracker](https://github.com/minikin/tagged/issues).
 
 ## License
+
+The source code is distributed under the MIT license.
+See the [LICENSE](https://github.com/minikin/tagged/blob/main/LICENSE) file for more info.
