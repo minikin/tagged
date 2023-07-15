@@ -1,11 +1,16 @@
+import 'package:meta/meta.dart';
+
 /// A generic class that represents a value with a tag a `new type`.
-/// The tag is a type parameter that can be used to distinguish between different types of values.
+/// The tag is a type parameter that can be used to distinguish
+/// between different types of values.
 /// The rawValue is the actual value being tagged.
+@immutable
 final class Tagged<Tag extends Object, RawValue extends Object>
     implements Comparable<Tagged<Tag, RawValue>> {
   final RawValue rawValue;
 
-  /// Constructor that creates a new Tagged instance with the specified rawValue.
+  /// Constructor that creates a new Tagged instance
+  /// with the specified rawValue.
   const Tagged(this.rawValue);
 
   /// Returns a new Tagged instance with the specified rawValue.
