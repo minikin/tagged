@@ -32,7 +32,7 @@ sealed class EmailTag {}
 
 typedef Email = Tagged<EmailTag, String>;
 
-final class User {
+class User {
   final UserId id;
   final String name;
   final Email email;
@@ -46,7 +46,7 @@ final class User {
 
 typedef ItemId = Tagged<ShopItem, String>;
 
-final class ShopItem {
+class ShopItem {
   final ItemId id;
   final double price;
 
