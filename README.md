@@ -251,9 +251,10 @@ final user = const User(
   null,
   id: UserId('1'),
   address: Address('address'),
-  email: Address('email@email.com'), // ❌ The argument type 'Tagged<({String address, User user}), String>' can't be assigned to the parameter type 'Tagged<({String email, User user}), String>'.
+  email: Address('email@email.com'), 
 );
 ```
+> ❌ The argument type 'Tagged<({String address, User user}), String>' can't be assigned to the parameter type 'Tagged<({String email, User user}), String>'.
 
 ### Accessing Raw Values
 
