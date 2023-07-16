@@ -22,15 +22,16 @@ A Newtype Pattern, a Safe & Type-Restricted Wrapper for Dart
   </a>
 </p>
 
-- [Motivation](#motivation)
-- [The problem](#the-problem)
-- [The solution](#the-solution)
-  - [Handling Tag Collisions](#handling-tag-collisions)
-  - [Accessing Raw Values](#accessing-raw-values)
-- [Installation](#installation)
-- [FAQ](#faq)
-- [Support](#support)
-- [License](#license)
+- [Tagged](#tagged)
+  - [Motivation](#motivation)
+  - [The problem](#the-problem)
+  - [The solution](#the-solution)
+    - [Handling Tag Collisions](#handling-tag-collisions)
+    - [Accessing Raw Values](#accessing-raw-values)
+  - [Installation](#installation)
+  - [FAQ](#faq)
+  - [Support](#support)
+  - [License](#license)
 
 > Inspired by [Pointfreeco's Tagged Swift Package](https://github.com/pointfreeco/swift-tagged) and functional programming.
 
