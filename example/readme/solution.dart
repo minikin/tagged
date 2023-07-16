@@ -4,14 +4,14 @@ typedef UserId = Tagged<User, String>;
 
 class User {
   final UserId id;
-  final String name;
+  final String address;
   final String email;
   final SubscriptionId? subscriptionId;
 
   const User(
     this.subscriptionId, {
     required this.id,
-    required this.name,
+    required this.address,
     required this.email,
   });
 }
@@ -29,7 +29,7 @@ class Subscription {
 final user = const User(
   null,
   id: UserId('1'),
-  name: 'John',
+  address: 'address',
   email: 'email@email.com',
 );
 
@@ -38,6 +38,6 @@ final subscriptions = <Subscription>[];
 Subscription getSubscription(SubscriptionId id) =>
     subscriptions.firstWhere((element) => element.id == id);
 
-final subscription = getSubscription(user.id);
+// final subscription = getSubscription(user.id);
 
-final id = user.id.rawValue;
+// final id = user.id.rawValue;

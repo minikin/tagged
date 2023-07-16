@@ -1,57 +1,58 @@
+// ignore_for_file: unused_element, unused_local_variable
+
 import 'package:tagged/tagged.dart';
 
 void main() {
-  final user = const User(
-    id: UserId('1'),
-    name: 'John',
-    email: Email('email@mail.com'),
+  final subscription = const Subscription(id: SubscriptionId('1'));
+
+  final user = User(
+    subscription.id,
+    id: const UserId('1'),
+    address: const Address('address'),
+    email: const Email('email@email.com'),
   );
 
-  final item = const ShopItem(
-    id: ItemId('1'),
-    price: 10,
-  );
+  final subscriptions = <Subscription>[];
 
-  // 🛑 The argument type 'Tagged<ShopItem, String>' can't be assigned
-  // to the parameter type 'Tagged<User, String>'.
-  // processUserData(item.id);
+  Subscription getSubscription(SubscriptionId id) =>
+      subscriptions.firstWhere((element) => element.id == id);
 
-  print({
-    'user': user.id.rawValue,
-    'item': item.id.rawValue,
-  });
-}
+  // ❌ The argument type 'Tagged<User, String>' can't be assigned
+  // to the parameter type 'Tagged<Subscription, String>'.
+  // final subscription = getSubscription(user.id);
 
-void processUserData(UserId id) {
-  print(id);
+  void sendEmail(Email email) {}
+
+  // ❌ The argument type 'Tagged<({String address, User user}), String>'
+  // can't be assigned to the parameter type
+  //'Tagged<({String email, User user}), String>'.
+  // sendEmail(user.address);
 }
 
 typedef UserId = Tagged<User, String>;
-
-sealed class EmailTag {}
-
-typedef Email = Tagged<EmailTag, String>;
+typedef Email = Tagged<({User user, String email}), String>;
+typedef Address = Tagged<({User user, String address}), String>;
 
 class User {
   final UserId id;
-  final String name;
+  final Address address;
   final Email email;
+  final SubscriptionId? subscriptionId;
 
-  const User({
+  const User(
+    this.subscriptionId, {
     required this.id,
-    required this.name,
+    required this.address,
     required this.email,
   });
 }
 
-typedef ItemId = Tagged<ShopItem, String>;
+typedef SubscriptionId = Tagged<Subscription, String>;
 
-class ShopItem {
-  final ItemId id;
-  final double price;
+class Subscription {
+  final SubscriptionId id;
 
-  const ShopItem({
+  const Subscription({
     required this.id,
-    required this.price,
   });
 }

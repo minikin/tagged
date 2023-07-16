@@ -139,13 +139,120 @@ final subscription = getSubscription(user.id);
 
 `Tagged` has prevented critical bugs at compile time, improving code stability and reliability.
 
+### Handling Tag Collisions
+
 Another bug remains unresolved within the types we've defined. We have implemented a function with the following signature:
 
 ```dart
-void sendWelcomeEmail(String userAddress) {}
+void sendEmail(String userAddress) {}
 ```
 
-### Handling Tag Collisions
+It lacks proper input validation and accepts __any__ string, which poses a potential issue.
+
+```dart
+sendEmail(user.address)
+```
+
+Although the code compiles and runs, there is a critical flaw in its logic. The variable user.address is mistakenly assumed to refer to the user's email address, when in fact, it points to their billing address. As a result, the emails intended for users are not being sent. Additionally, if the function is called with invalid data, it may lead to server churn and crashes, exacerbating the issue further. This issue must be addressed to ensure that users receive the appropriate communications and to prevent potential disruptions to the server.
+
+Let's try to fix the issue with Tagged:
+
+```dart
+typedef UserId = Tagged<User, String>;
+
+typedef Email = Tagged<User, String>;
+
+typedef Address = Tagged<User, String>;
+
+class User {
+  final UserId id;
+  final String address;
+  final Email email;
+  final SubscriptionId? subscriptionId;
+
+  const User(
+    this.subscriptionId, {
+    required this.id,
+    required this.address,
+    required this.email,
+  });
+}
+```
+
+However, we shouldn't reuse `Tagged<User, String>` for `Email` and  `Address` because the compiler would treat `UserId`, `Email` and `Address` as the same type!
+
+```dart
+typedef UserId = Tagged<User, String>;
+
+abstract class EmailTag {}
+typedef Email = Tagged<EmailTag, String>;
+
+abstract class AddressTag {}
+typedef Address = Tagged<AddressTag, String>;
+
+class User {
+  final UserId id;
+  final Address address;
+  final Email email;
+  final SubscriptionId? subscriptionId;
+
+  const User(
+    this.subscriptionId, {
+    required this.id,
+    required this.address,
+    required this.email,
+  });
+}
+```
+
+Now we can update `sendEmail` to take an `Email` where it previously took any `String`.
+
+```dart
+void sendEmail(Email email) {}
+```
+
+```dart
+sendEmail(user.address)
+```
+
+> ❌ The argument type 'Tagged<AddressTag, String>' can't be assigned to the parameter type 'Tagged<EmailTag, String>'.
+
+We've now distinguished `Email` and `Address` at the cost of an extra line per type, but things are documented very explicitly.
+
+Tuple labels in the type system can differentiate seemingly equivalent tuple types, allowing us to save an additional line of code.
+
+```dart
+typedef UserId = Tagged<User, String>;
+
+typedef Email = Tagged<({User user, String email}), String>;
+
+typedef Address = Tagged<({User user, String address}), String>;
+
+class User {
+  final UserId id;
+  final Address address;
+  final Email email;
+  final SubscriptionId? subscriptionId;
+
+  const User(
+    this.subscriptionId, {
+    required this.id,
+    required this.address,
+    required this.email,
+  });
+}
+```
+
+Add text:
+
+```dart
+final user = const User(
+  null,
+  id: UserId('1'),
+  address: Address('address'),
+  email: Address('email@email.com'), // ❌ The argument type 'Tagged<({String address, User user}), String>' can't be assigned to the parameter type 'Tagged<({String email, User user}), String>'.
+);
+```
 
 ### Accessing Raw Values
 

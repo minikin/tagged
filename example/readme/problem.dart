@@ -1,13 +1,13 @@
 class User {
   final String id;
-  final String name;
+  final String address;
   final String email;
   final String? subscriptionId;
 
   const User(
     this.subscriptionId, {
     required this.id,
-    required this.name,
+    required this.address,
     required this.email,
   });
 }
@@ -15,7 +15,7 @@ class User {
 final user = const User(
   null,
   id: '1',
-  name: 'John',
+  address: 'address',
   email: 'email@email.com',
 );
 

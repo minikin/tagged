@@ -2,22 +2,28 @@ import 'package:tagged/tagged.dart';
 
 typedef UserId = Tagged<User, String>;
 
-// sealed class EmailTag {}
+// abstract class EmailTag {}
 
-//typedef Email = Tagged<EmailTag, String>;
+// typedef Email = Tagged<EmailTag, String>;
+
+// abstract class AddressTag {}
+
+// typedef Address = Tagged<AddressTag, String>;
 
 typedef Email = Tagged<({User user, String email}), String>;
 
+typedef Address = Tagged<({User user, String address}), String>;
+
 class User {
   final UserId id;
-  final String name;
+  final Address address;
   final Email email;
   final SubscriptionId? subscriptionId;
 
   const User(
     this.subscriptionId, {
     required this.id,
-    required this.name,
+    required this.address,
     required this.email,
   });
 }
@@ -25,7 +31,7 @@ class User {
 final user = const User(
   null,
   id: UserId('1'),
-  name: 'John',
+  address: Address('address'),
   email: Email('email@email.com'),
 );
 
@@ -39,4 +45,10 @@ class Subscription {
   });
 }
 
-void sendWelcomeEmail(String userAddress) {}
+void sendEmail(Email email) {}
+
+// final _ = sendEmail(user.address);
+
+// void sendEmail(String userAddress) {}
+
+// final _ = sendEmail(user.address);
