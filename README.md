@@ -1,4 +1,4 @@
-****# Tagged
+# Tagged
 
 A Newtype Pattern, a Safe & Type-Restricted Wrapper for Dart
 
