@@ -1,12 +1,50 @@
 import 'package:meta/meta.dart';
 
-/// A generic class that represents a value with a tag a `new type`.
-/// The tag is a type parameter that can be used to distinguish
-/// between different types of values.
-/// The rawValue is the actual value being tagged.
+/// `Tagged` is a Dart implementation of the Newtype pattern,
+/// a pattern used to create a new type from an existing type
+/// but with a different name and potentially different behavior.
+///
+/// The `Tagged` provides a straightforward way to add additional context
+/// or "tags" to a value without changing the value itself.
+/// It is a handy tool for creating new types
+/// and enforcing stronger type checking in Dart applications.
+///
+/// ```dart
+/// typedef UserId = Tagged<User, String>;
+/// typedef Email = Tagged<({User user, String email}), String>;
+/// typedef Address = Tagged<({User user, String address}), String>;
+///
+/// class User {
+///   final UserId id;
+///   final Address address;
+///   final Email email;
+///   final SubscriptionId? subscriptionId;
+///
+///  const User(
+///     this.subscriptionId, {
+///     required this.id,
+///     required this.address,
+///     required this.email,
+///   });
+/// }
+///
+/// typedef SubscriptionId = Tagged<Subscription, String>;
+///
+/// class Subscription {
+///   final SubscriptionId id;
+///
+///   const Subscription({
+///     required this.id,
+///   });
+/// }
+///
+///  Subscription getSubscription(SubscriptionId id) =>
+///     subscriptions.firstWhere((element) => element.id == id);
+/// ````
 @immutable
 final class Tagged<Tag extends Object, RawValue extends Object>
     implements Comparable<Tagged<Tag, RawValue>> {
+  /// The rawValue is the actual value being tagged.
   final RawValue rawValue;
 
   /// Constructor that creates a new Tagged instance

@@ -181,6 +181,7 @@ class User {
 ```
 
 However, we shouldn't reuse `Tagged<User, String>` for `Email` and  `Address` because the compiler would treat `UserId`, `Email` and `Address` as the same type!
+We need a new tag, which means we need a new type. We can use any type, but an uninhabited `abstract class` is uninstantiable, which is perfect here.
 
 ```dart
 typedef UserId = Tagged<User, String>;
@@ -220,7 +221,7 @@ sendEmail(user.address)
 
 We've now distinguished `Email` and `Address` at the cost of an extra line per type, but things are documented very explicitly.
 
-Tuple labels in the type system can differentiate seemingly equivalent tuple types, allowing us to save an additional line of code.
+Records labels in the type system can differentiate seemingly equivalent record types, allowing us to save an additional line of code.
 
 ```dart
 typedef UserId = Tagged<User, String>;
@@ -244,7 +245,7 @@ class User {
 }
 ```
 
-Add text:
+If we accidentally swap the arguments, the compiler will catch it.
 
 ```dart
 final user = const User(
