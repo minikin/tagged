@@ -74,7 +74,7 @@ class Subscription {
 }
 ```
 
-We are utilizing the same data type for both user and subscription IDs in our model. However, it is crucial to note that our application logic should not consider these values as interchangeable. To illustrate, let's consider a scenario where we need to create a function to retrieve a subscription:
+We are utilizing the same data type for both user and subscription IDs in our model. However, it is crucial to note that our application logic should not consider these values interchangeably. To illustrate, let's consider a scenario where we need to create a function to retrieve a subscription:
 
 ```dart
 Subscription getSubscription(String id) =>
