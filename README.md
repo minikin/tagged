@@ -283,7 +283,7 @@ dart pub get
 
 ## FAQ
 
-  - **Why not use a Typedefs?**
+  - **Why not use Typedefs?**
 
     [Typedefs](https://dart.dev/language/typedefs)  are just that: aliases. A type alias can be used interchangeably with the original type and offers no additional safety or guarantees.
 
