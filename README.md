@@ -52,14 +52,14 @@ Dart has a robust and versatile type system, but it's still common to model most
 ```dart
 class User{
   final String id;
-  final String name;
+  final String address;
   final String email;
   final String? subscriptionId;
 
   const User(
     this.subscriptionId, {
-    required this.id,
-    required this.name,
+    required this.id
+    required this.address,
     required this.email,
   });
 }
@@ -99,14 +99,14 @@ typedef UserId = Tagged<User, String>;
 
 class User {
   final UserId id;
-  final String name;
+  final String address;
   final String email;
   final SubscriptionId? subscriptionId;
 
   const User(
     this.subscriptionId, {
     required this.id,
-    required this.name,
+    required this.address,
     required this.email,
   });
 }
@@ -155,7 +155,7 @@ It lacks proper input validation and accepts __any__ string, which poses a poten
 sendEmail(user.address)
 ```
 
-Although the code compiles and runs, there is a critical flaw in its logic. The variable user.address is mistakenly assumed to refer to the user's email address, when in fact, it points to their billing address. As a result, the emails intended for users are not being sent. Additionally, if the function is called with invalid data, it may lead to server churn and crashes, exacerbating the issue further. This issue must be addressed to ensure that users receive the appropriate communications and to prevent potential disruptions to the server.
+Although the code compiles and runs, there is a critical flaw in its logic. The variable ` user.address` is mistakenly assumed to refer to the user's email address, when in fact, it points to their billing address. As a result, the emails intended for users are not being sent. Additionally, if the function is called with invalid data, it may lead to server churn and crashes, exacerbating the issue further. This issue must be addressed to ensure that users receive the appropriate communications and to prevent potential disruptions to the server.
 
 Let's try to fix the issue with Tagged:
 
