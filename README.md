@@ -37,11 +37,11 @@ A Newtype Pattern, a Safe & Type-Restricted Wrapper for Dart
 
 ## Motivation
 
-Frequently, we find ourselves dealing with data types that are overly broad or encompass more values than required for our particular field.
-At times, we may need to distinguish between two values that appear equivalent at the type level.
+Frequently, we deal with data types that are overly broad or encompass more values than required for our particular field.
+Sometimes, we may need to distinguish between two values that appear equivalent at the type level.
 
-An email address, for instance, is merely a String, yet it needs to have certain limitations on its usage.
-Similarly, while a `User` `id` can be represented using an `String`, it should be distinguishable from a `Subscription` id that also uses an `String` as its base.
+An email address, for instance, is merely a String, yet it needs certain limitations on its usage.
+Similarly, while a `User` `id` can be represented using a `String`, it should be distinguishable from a `Subscription` id using a `String` as its base.
 
 The `Tagged` pub comes in handy in averting severe runtime errors during the compile time by effortlessly encapsulating fundamental types within more distinct contexts.
 
@@ -81,13 +81,14 @@ Subscription getSubscription(String id) =>
     subscriptions.firstWhere((element) => element.id == id);
 ```
 
-This type of code is extremely common, but it can lead to significant runtime bugs and security vulnerabilities. Although it may compile, run, and appear reasonable at first glance, it is essential to be aware of the potential risks it poses.
+This type of code is extremely common, but it can lead to significant runtime bugs and security vulnerabilities. 
+Although it may compile, run, and appear reasonable at first glance, it is essential to be aware of its potential risks.
 
 ```dart
 final subscription = getSubscription(user.id);
 ```
 
-This code is prone to _failure_ when attempting to locate a user's subscription. Even worse, if there is an overlap between user IDs and subscription IDs, it will _incorrectly_ display subscriptions to the wrong users. This can lead to severe consequences, including the _exposure of sensitive_ information such as billing details.
+This code is prone to _failure_ when locating a user's subscription. Even worse, if there is an overlap between user IDs and subscription IDs, it will _incorrectly_ display subscriptions to the wrong users. This can lead to severe consequences, including the _exposure of sensitive_ information such as billing details.
 
 ## The solution
 
