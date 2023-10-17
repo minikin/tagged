@@ -1,10 +1,10 @@
 name: tagged
 description: A Newtype Pattern, a Safe & Type-Restricted Wrapper for Dart.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/minikin/tagged
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.1.2 <4.0.0"
 
 dependencies:
   meta: ^1.9.1
